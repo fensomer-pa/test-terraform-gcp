@@ -14,10 +14,10 @@ jobs:
     permissions:
       contents: 'read'
       id-token: 'write'
-    uses: './.github/workflows/tf-deploy.yml'
+    uses: './.github/workflows/tf-deploy.yml@main'
     with:
       environment: ${{ vars.ENVIRONMENT_NAME }}
-      working-directory: './platform'
+      working-directory: 'platform'
     secrets:
       workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
       gcp_service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
