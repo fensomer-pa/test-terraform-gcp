@@ -10,7 +10,7 @@ on:
 
 jobs:
   tf_apply:
-    environment: ${{ vars.ENVIRONMENT_NAME }}
+   # environment: ${{ vars.ENVIRONMENT_NAME }}
     permissions:
       contents: 'read'
       id-token: 'write'
