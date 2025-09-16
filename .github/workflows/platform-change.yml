@@ -1,4 +1,4 @@
-name: platform-changes.yml
+name: Platform Change
 on:
   pull_request:
     paths:
@@ -22,7 +22,8 @@ jobs:
 
     steps:
       - id: 'auth'
-        uses: 'google-github-actions/auth@v2'
+        uses: .github/workflows/tf-deploy.yml
         with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          environment: ${{ vars.ENVIRONMENT_NAME }}
+          work_directory: 'platform'
+        secrets: inherit

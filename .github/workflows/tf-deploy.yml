@@ -6,7 +6,7 @@ on:
         description: 'The environment to deploy to (e.g., dev, prod)'
         required: true
         type: string
-      working-directory:
+      work_directory:
         description: 'The directory to run terraform from'
         required: false
         type: string
@@ -29,6 +29,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
