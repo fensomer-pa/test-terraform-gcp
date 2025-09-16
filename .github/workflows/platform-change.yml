@@ -36,11 +36,13 @@ jobs:
           terraform_version: 1.7.5
 
       - name: Terraform Init
-        run: terraform init --backend-config=./environments/${{ vars.ENVIRONMENT }}/terraform.backend
+        run: terraform init --backend-config=./environments/${{ vars.ENVIRONMENT_NAME }}/terraform.backend
 
       - name: Terraform Validate
         run: terraform validate
 
       - name: Terraform Plan
         id: terraform-plan
-        run: terraform plan -var-file="environments/${{ vars.ENVIRONMENT }}/terraform.tfvars"
+        run: terraform plan -var-file="environments/${{ vars.ENVIRONMENT_NAME }}/terraform.tfvars"
+
+
