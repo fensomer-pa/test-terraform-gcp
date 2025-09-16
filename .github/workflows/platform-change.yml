@@ -10,7 +10,8 @@ on:
 
 jobs:
   tf_apply:
-    environment: dev
+    environment:
+      name: dev
     uses: ./.github/workflows/tf-deploy.yml
     with:
       environment: ${{ vars.ENVIRONMENT_NAME }}
