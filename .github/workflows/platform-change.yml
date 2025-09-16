@@ -9,13 +9,8 @@ on:
       - 'feature/**'
 
 jobs:
-  tf_apply:
-    environment:
-      name: dev
+  tf_apply_dev:
     uses: ./.github/workflows/tf-deploy.yml
     with:
       environment: ${{ vars.ENVIRONMENT_NAME }}
       working-directory: 'platform'
-    secrets:
-      workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-      gcp_service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
