@@ -1,4 +1,4 @@
-name: Platform Change
+name: Terraform Deploy
 on:
   pull_request:
     paths:
@@ -9,8 +9,8 @@ on:
       - 'feature/**'
 
 jobs:
-  auth:
-
+  tf_deploy_dev:
+    name: Terraform Deploy (Dev)
     environment: dev
 
     runs-on: ubuntu-latest
@@ -21,9 +21,26 @@ jobs:
       id-token: 'write'
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - id: 'auth'
-        uses: .github/workflows/tf-deploy.yml
+        uses: 'google-github-actions/auth@v2'
         with:
-          environment: ${{ vars.ENVIRONMENT_NAME }}
-          work_directory: 'platform'
-        secrets: inherit
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.7.5
+
+      - name: Terraform Init
+        run: terraform init --backend-config=./environments/${{ vars.ENVIRONMENT }}/terraform.backend
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        id: terraform-plan
+        run: terraform plan -var-file="environments/${{ var.ENVIRONMENT }}/terraform.tfvars"
