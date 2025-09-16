@@ -1,0 +1,17 @@
+name: module-changes.yml
+on:
+  pull_request:
+    paths:
+      - 'platform/**'
+  push:
+    branches:
+      - 'main'
+      - 'feature/**'
+
+jobs:
+  tf_apply:
+    uses: './.github/workflows/shared/tf-deploy.yml'
+    with:
+      environment: ${{ vars.ENVIRONMENT_NAME }}
+      working-directory: './platform'
+

@@ -1,0 +1,55 @@
+name: Terraform Deployment
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: 'The environment to deploy to (e.g., dev, prod)'
+        required: true
+        type: string
+      working-directory:
+        description: 'The directory to run terraform from'
+        required: false
+        type: string
+        default: './'
+
+jobs:
+  terraform-apply:
+    environment: ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
+
+    timeout-minutes: 10
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to GCP via Workload Identity
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.workload_identity_provider }}
+          service_account: ${{ secrets.gcp_service_account }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.7.5
+
+      - name: Terraform Init
+        run: terraform init --backend-config=./environments/${{ inputs.environment }}/terraform.backend
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        id: terraform-plan
+        run: terraform plan -var-file="environments/${{ inputs.environment }}/terraform.tfvars"
+#
+#      - name: Terraform Apply
+#        if: github.ref == 'refs/heads/dev' && steps.terraform-plan.outcome == 'success'
+#        run: terraform apply -auto-approve -input=false

@@ -1,0 +1,98 @@
+# .terraform-docs.yml
+
+formatter: markdown table
+output:
+  file: README.md
+  mode: replace
+  template: |-
+    # DfT OZEV Open Data Stats Pipeline
+    
+    ## Summary
+    This repository contains Terraform configuration for managing Google Cloud Platform (GCP) resources, which utilised by the DfT OZEV Open Stats pipeline. It includes configurations for setting up Cloud Run Job, Cloud Scheduler and BigQuery Tables used by and for execute the Stats pipeline.
+  
+    
+    {{ .Content }}
+    
+    ## Files and Directories
+    
+    ### General
+    | Name/Path                                  | Description                                                                                                                               |
+    |--------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+    | [.gitignore](.gitignore)                   | Specifies files and directories to be ignored by git.                                                                                     |
+    | [.terraform-docs.yml](.terraform-docs.yml) | File containing configuration for [terraform-docs](https://terraform-docs.io/).                                                           |
+    | [README.md](README.md)                     | Repository documentation and usage instructions. (File is generated using [terraform-docs](https://terraform-docs.io/) and configuration within [.terraform-docs.yml](.terraform-docs.yml) |
+    
+    ### Pipeline
+    | Name/Path                                    | Description                                                                                                                               |
+    |----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+    | [scripts/tag-repo.sh](scripts/tag-repo.sh)   | Utility script used by the pipeline for bumping tag versions and generating CHANGELOG.md. (Used in conjunction with [.cz.yaml](.cz.yaml)) |
+    | [.cz.yaml](.cz.yaml)                         | Configuration for [commitizen](https://commitizen-tools.github.io/commitizen/), a command line tool for managing tags.                    |                                                                                            
+    | [.github/workflows/deploy.yml](deploy.yml)   | Configuration for Github Pipelines.                                                                                                 | 
+    
+    ### Terraform
+    | Name/Path                                                      | Description                                                                                                                                                              |
+    |----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|                                                                                                                    |                                                                                                                |
+    | [environments](environments)                                   | Directory containing environment specific overrides.                                                                                                                          |                                                                                                                |
+    | [terraform.tfvars](terraform.auto.tfvars)                      | Contains global variable overrides.                                                                                                                          |                                                                                                                |
+    | [main.tf](main.tf)                                             | Main Terraform configuration file.                                                                                                                                       |
+    | [outputs.tf](outputs.tf)                                       | Defines outputs of the Terraform configuration.                                                                                                                          |
+    | [backend.tf](backend.tf)                                       | Specifies the backend configuration for Terraform state.                                                                                                                 |
+    | [providers.tf](providers.tf)                                   | Specifies the providers required for the Terraform configuration.                                                                                                        |                                                                                                    |
+    | [variables.tf](variables.tf)                                   | Defines input variables for the Terraform configuration.                                                                                                                 |
+    | [versions.tf](versions.tf)                                     | Specifies the required Terraform and provider versions.                                                                                                                  |
+    
+    ## Usage
+    To deploy this configuration, follow the steps below:
+    
+    1. Ensure you have the necessary permissions to access the repository.
+    2. Clone this repository.
+    
+    ```shell
+    git clone git@github.com:Department-for-Transport-External/dft-ozev-pipeline-stats-transform.git
+    ```
+    
+    3. Create a feature branch with a meaningful name which will contain the required change.
+    
+    ```shell
+    git pull
+    git checkout -b feature/my-feature
+    ```
+    
+    4. Update the Terraform configuration as needed and commit changes.
+    
+    ***Please note that the repository uses [commitizen](https://commitizen-tools.github.io/commitizen/) for managing the tags on the repository
+    and also the CHANGELOG.md. In order for this to work correctly, commit messages should following the structure detailed on the
+    [conventionalcommits](https://www.conventionalcommits.org/en/v1.0.0/) page. When following the conventionalcommits standard features would be
+    commited with messages following the structure below:***
+    
+    ```shell
+    git add .
+    git commit -am "feat: Details about my new feature"
+    ```
+    
+    ***Please consult [conventionalcommits](https://www.conventionalcommits.org/en/v1.0.0/) page for more information on this.***
+    
+    5. Push your changes to Azure DevOps.
+    
+    ```shell
+    git push --set-upstream origin feature/my-feature
+    ```
+    
+    6. Create a pull request to merge the changes into the `main` branch.
+    7. The Azure Pipeline will trigger a `terraform plan` in [Terraform Cloud](https://app.terraform.io/app/KCAD/workspaces/gcp-plat-ident/runs).
+    8. Before completing the pull request the following criteria should be met:
+    - Associated Build Validation Policies have run and completed successfully
+    - At least two reviewers have approved the change
+    - The Terraform plan has completed successfully without any errors
+    
+    9. Once the pull request has been completed and changes merged, confirm and run the `terraform apply` in [Terraform Cloud](https://app.terraform.io/app/KCAD/workspaces/gcp-plat-ident/runs) to apply the changes.
+    
+    For detailed information on each module and its variables, refer to the module documentation linked in the configuration files.
+    
+    ## Additional Information
+    For more details, please refer to the following resources:
+    - [Terraform Google Provider Documentation](https://registry.terraform.io/providers/hashicorp/google/latest/docs)
+    - [Terraform Google Modules Documentation](https://terraform-google-modules.github.io/documentation/)
+    - [Terraform Docs Documentation](https://terraform-docs.io/user-guide/introduction/)
+    - [Commitizen Documentation](https://commitizen-tools.github.io/commitizen/)
+    - [Conventional Commits Documentation](https://www.conventionalcommits.org/en/v1.0.0/#summary) 

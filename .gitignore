@@ -1,0 +1,12 @@
+# Terraform
+.terraform
+*.hcl
+*.tfstate*
+auth.json
+*tfplan*
+_testing.auto.tfvars
+.external_modules
+*.zip
+
+# IntelliJ
+.idea
