@@ -5,7 +5,7 @@ resource "random_id" "this" {
 resource "google_iam_workload_identity_pool" "this" {
   provider                  = google-beta
   project                   = var.project_id
-  workload_identity_pool_id = format("%s-pdr-%s", var.name_prefix, random_id.this.hex)
+  workload_identity_pool_id = format("%s-pl-%s", var.name_prefix, random_id.this.hex)
   display_name              = var.display_name
   description               = var.description
   disabled                  = false

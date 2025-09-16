@@ -15,6 +15,8 @@ artifact_registries = {
     }
   }
 }
+
+# principalSet://iam.googleapis.com/projects/457686575749/locations/global/workloadIdentityPools/rf-pa-dev-pl-5cff/attribute.repository/fensomer-pa/test-terraform-gcp
 # gcs_buckets = {
 #   additional_files_clean = {
 #     name = "additional-data-sources-clean"

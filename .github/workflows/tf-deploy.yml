@@ -11,10 +11,14 @@ on:
         required: false
         type: string
         default: './'
+    secrets:
+       workload_identity_provider:
+         required: true
+       gcp_service_account:
+         required: true
 
 jobs:
   terraform-apply:
-    environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
     defaults:
       run:
