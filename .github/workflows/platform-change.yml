@@ -14,4 +14,6 @@ jobs:
     with:
       environment: ${{ vars.ENVIRONMENT_NAME }}
       working-directory: 'platform'
-    secrets: inherit
+    secrets:
+      workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+      gcp_service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}

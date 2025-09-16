@@ -11,6 +11,11 @@ on:
         required: false
         type: string
         default: './'
+    secrets:
+      workload_identity_provider:
+        required: true
+      gcp_service_account:
+        required: true
 
 jobs:
   terraform-apply:
@@ -30,8 +35,8 @@ jobs:
       - name: Authenticate to GCP via Workload Identity
         uses: google-github-actions/auth@v2
         with:
-          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          workload_identity_provider: ${{ secrets.workload_identity_provider }}
+          service_account: ${{ secrets.gcp_service_account }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
