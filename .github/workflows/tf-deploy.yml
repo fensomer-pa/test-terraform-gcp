@@ -21,9 +21,6 @@ jobs:
         working-directory: ${{ inputs.working-directory }}
 
     timeout-minutes: 10
-    permissions:
-      contents: 'read'
-      id-token: 'write'
 
     steps:
       - name: Checkout
