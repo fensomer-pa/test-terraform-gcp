@@ -10,8 +10,6 @@ on:
 
 jobs:
   tf_apply:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
     environment: dev
     uses: ./.github/workflows/tf-deploy.yml
     with:

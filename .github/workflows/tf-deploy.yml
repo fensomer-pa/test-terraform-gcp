@@ -15,12 +15,13 @@ on:
 jobs:
   terraform-apply:
     name: 'Terraform Apply (${{ inputs.environment }})'
+
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}
-
-    timeout-minutes: 10
 
     steps:
       - name: Checkout
