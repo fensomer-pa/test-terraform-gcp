@@ -11,19 +11,11 @@ on:
 
 jobs:
   trigger-deployment:
-    environment: ${{ github.event.inputs.environment }}  # e.g., 'staging', 'production'
+    environment: ${{ github.event.inputs.environment }}
     runs-on: ubuntu-latest
-    
-    # Acquire secrets from the environment
+
     steps:
-    # (You need to set secrets for each environment via GitHub UI: Repository Settings > Environments > <env> > Secrets)
-
-    outputs:
-      app_secret: ${{ secrets.APP_SECRET }}
-      api_key: ${{ secrets.API_KEY }}
-
-    # Call the shared workflow, passing secrets as inputs
-    uses: ./.github/workflows/shared-deploy.yml
-    with:
-      app_secret: ${{ secrets.APP_SECRET }}
-      api_key: ${{ secrets.API_KEY }}
+      - uses: shared-deploy.yml
+        with:
+          app_secret: ${{ secrets.APP_SECRET }}
+          api_key: ${{ secrets.API_KEY }}
