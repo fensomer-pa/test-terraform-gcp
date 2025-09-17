@@ -3,10 +3,10 @@ on:
   pull_request:
     paths:
       - 'platform/**'
-  push:
-    branches:
-      - 'main'
-      - 'feature/**'
+#  push:
+#    branches:
+#      - 'main'
+#      - 'feature/**'
 
 jobs:
   tf_deploy_dev:
