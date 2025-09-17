@@ -1,0 +1,19 @@
+# .github/workflows/shared-deploy.yml
+on:
+  workflow_call:
+    inputs:
+      app_secret:
+        required: true
+        type: string
+      api_key:
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use secrets from parent workflow
+        run: |
+          echo "App Secret: ${{ inputs.app_secret }}"
+          echo "API Key: ${{ inputs.api_key }}"
