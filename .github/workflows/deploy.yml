@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: shared-deploy.yml
+      - uses: .github/workflows/shared-deploy.yml
         with:
           app_secret: ${{ secrets.APP_SECRET }}
           api_key: ${{ secrets.API_KEY }}
