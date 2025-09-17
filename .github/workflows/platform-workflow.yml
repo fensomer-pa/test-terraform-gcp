@@ -24,7 +24,7 @@ jobs:
         working-directory: 'platform'
 
 
-    name: Terraform Deploy (${{ vars.ENVIRONMENT_NAME }})
+    name: Terraform Deploy (${{ vars.GITHUB_ENV }})
 
     steps:
       - name: Checkout
