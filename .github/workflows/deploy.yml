@@ -8,10 +8,13 @@ on:
 
 jobs:
   plan-dev:
+    # Specifies the 'dev' environment in your repository settings
     environment: dev
+    # Calls the reusable workflow from a different repository
     uses: fensomer-pa/test-terraform-gcp/.github/workflows/tf_plan.yml@v1.0.0
+    # This is key: it passes all secrets from the 'dev' environment
+    # to the reusable workflow.
     secrets: inherit
     permissions:
       contents: read
       id-token: write
-

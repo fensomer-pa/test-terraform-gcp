@@ -1,26 +1,47 @@
-name: tf_plan.yml
+name: Reusable Terraform Plan
+
 on:
   workflow_call:
+    inputs:
+      working-directory:
+        description: 'The directory where terraform commands will be run'
+        required: false
+        type: string
+        default: './'
+    secrets:
+      # These secrets are expected to be passed from the caller,
+      # often inherited from an environment's secrets.
+      workload_identity_provider:
+        description: 'The GCP Workload Identity Provider'
+        required: true
+      service_account:
+        description: 'The GCP Service Account to impersonate'
+        required: true
 
 jobs:
-  plan:
+  terraform-plan:
+    name: 'Terraform Plan'
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        working-directory: ${{ inputs.working-directory }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - id: 'auth'
+      - name: 'Authenticate to GCP'
         uses: 'google-github-actions/auth@v2'
         with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          workload_identity_provider: ${{ secrets.workload_identity_provider }}
+          service_account: ${{ secrets.service_account }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: ${{ vars.TERRAFORM_VERSION }}
 
       - name: Terraform Init
-        run: terraform init --backend-config=./environments/${{ vars.ENVIRONMENT_NAME }}/terraform.backend
+        run: terraform init
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -input=false -no-color
