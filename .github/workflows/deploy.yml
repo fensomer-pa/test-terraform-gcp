@@ -19,6 +19,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Use shared deploy
-        uses: ./.github/actions/shared-deploy
+        uses: ./.github/actions/tf-deploy
         with:
-          test: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
