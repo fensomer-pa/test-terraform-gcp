@@ -20,3 +20,5 @@ jobs:
 
       - name: Use shared deploy
         uses: ./.github/actions/shared-deploy
+        with:
+          test: ${{ secrets.GCP_SERVICE_ACCOUNT }}
