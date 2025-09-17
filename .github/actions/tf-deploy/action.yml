@@ -8,6 +8,18 @@ inputs:
   service_account:
     description: 'Test'
     required: true
+  terraform_version:
+    description: 'Test'
+    required: false
+    default: 1.7.5
+  environment_name:
+    description: 'Test'
+    required: false
+    default: 'dev'
+  working_directory:
+    description: 'Test'
+    required: false
+    default: 'platform'
 runs:
   using: "composite"
   steps:
@@ -20,11 +32,13 @@ runs:
     - id: 'Setup Terraform'
       uses: hashicorp/setup-terraform@v3
       with:
-        terraform_version: ${{ vars.TERRAFORM_VERSION }}
+        terraform_version: ${{ inputs.terraform_version }}
 
     - id: Terraform Init
-      run: terraform init --backend-config=./environments/${{ vars.ENVIRONMENT_NAME }}/terraform.backend
+      run: terraform init --backend-config=./environments/${{ inputs.environment_name }}/terraform.backend
+      working-directory: ${{ inputs.working_directory }}
 
     - name: Terraform Validate
       run: terraform validate
+      working-directory: ${{ inputs.working_directory }}
 
