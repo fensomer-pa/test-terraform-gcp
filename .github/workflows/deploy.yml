@@ -8,13 +8,10 @@ on:
 
 jobs:
   plan-dev:
-    runs-on: ubuntu-latest
     environment: dev
-
+    uses: ./.github/workflows/tf_plan.yml
+    secrets: inherit
     permissions:
       contents: read
       id-token: write
 
-    steps:
-      - id: 'deploy'
-        uses: ./.github/workflows/tf_plan.yml
