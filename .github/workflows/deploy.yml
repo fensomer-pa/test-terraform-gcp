@@ -8,6 +8,7 @@ on:
 
 jobs:
   plan-dev:
+    environment: dev
 
     permissions:
       contents: read
