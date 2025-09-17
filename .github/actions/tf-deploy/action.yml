@@ -29,16 +29,16 @@ runs:
         workload_identity_provider: ${{ inputs.workload_identity_provider }}
         service_account: ${{ inputs.service_account }}
 
-    - id: 'Setup Terraform'
+    - id: 'setup_terraform'
       uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: ${{ inputs.terraform_version }}
 
-    - id: Terraform Init
-      run: terraform init --backend-config=./environments/${{ inputs.environment_name }}/terraform.backend
-      working-directory: ${{ inputs.working_directory }}
-
-    - name: Terraform Validate
-      run: terraform validate
-      working-directory: ${{ inputs.working_directory }}
+#    - id: 'tf_init'
+#      run: terraform init --backend-config=./environments/${{ inputs.environment_name }}/terraform.backend
+#      working-directory: ${{ inputs.working_directory }}
+#
+#    - id: 'tf_validate'
+#      run: terraform validate
+#      working-directory: ${{ inputs.working_directory }}
 
