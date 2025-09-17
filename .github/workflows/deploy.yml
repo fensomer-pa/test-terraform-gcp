@@ -8,5 +8,5 @@ on:
 
 jobs:
   plan-dev:
-    uses: ./.github/workflows/tf_plan.yaml
+    uses: ./.github/workflows/tf_plan.yml
     secrets: inherit
