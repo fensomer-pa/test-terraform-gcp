@@ -1,0 +1,8 @@
+name: shared-deploy
+author: Reece.fensome
+description: shared-deploy
+runs:
+  using: "composite"
+  steps:
+    - run: ${{ github.action_path }}/test/script.sh
+      shell: bash
