@@ -2,24 +2,11 @@
 name: Deploy
 
 on:
-  workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Deployment environment'
-        required: true
-        type: string
+  push:
+    branches:
+      - "feature/**"
 
 jobs:
-  trigger-deployment:
-    environment: ${{ github.event.inputs.environment }}
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Use shared deploy
-        uses: ./.github/actions/tf-deploy
-        with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+  plan-dev:
+    uses: ./.github/workflows/tf_plan.yaml
+    secrets: inherit
