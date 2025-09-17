@@ -9,7 +9,7 @@ on:
 jobs:
   plan-dev:
     environment: dev
-    uses: ./.github/workflows/tf_plan.yml
+    uses: fensomer-pa/test-terraform-gcp/.github/workflows/tf_plan.yml@v1.0.0
     secrets: inherit
     permissions:
       contents: read
