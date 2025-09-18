@@ -11,15 +11,15 @@ on:
       - 'main'
       - 'feature/**'
 
+permissions:
+  contents: 'read'
+  id-token: 'write'
+
 jobs:
   deploy-dev:
-    environment: ${{ inputs.environment }}
-    name: TF Deploy ${{ inputs.environment }}
+    environment: dev
+    name: TF Deploy DEV
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: 'read'
-      id-token: 'write'
 
     steps:
       - name: Checkout
