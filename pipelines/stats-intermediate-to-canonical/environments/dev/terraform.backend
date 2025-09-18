@@ -1,0 +1,2 @@
+bucket="pa-rf-sandbox-tf-state"
+prefix = "pipelines/stats-intermediate-to-canonical"
