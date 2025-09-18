@@ -9,7 +9,13 @@ on:
       - 'feature/**'
 
 jobs:
+
   platform_deploy_dev:
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
     name: Platform Deploy Dev
     uses: ./.github/workflows/deploy.yml
     with:
