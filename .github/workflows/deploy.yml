@@ -8,11 +8,27 @@ on:
 
 jobs:
   deploy-dev:
-    name: Application - Deploy to Dev
-    uses: ./.github/workflows/tf_deploy.yml
-    with:
-      environment: dev
+    environment: dev
+    name: TF Deploy Dev
+    runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        shell: bash
+        working-directory: terraform
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Setup Terraform
+        uses: ./.github/actions/tf_deploy
 
 
 

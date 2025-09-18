@@ -18,16 +18,5 @@ runs:
   using: "composite"
   steps:
     - id: 'setup_terraform'
-      uses: hashicorp/setup-terraform@v3
-      with:
-        terraform_version: ${{ inputs.terraform_version }}
-
-    - id: 'tf_init'
-      run: terraform init --backend-config=./environments/${{ inputs.environment_name }}/terraform.backend
       shell: bash
-      working-directory: ${{ inputs.working_directory }}
-
-    - id: 'tf_validate'
-      run: terraform validate
-      shell: bash
-      working-directory: ${{ inputs.working_directory }}
+      run: 'printenv'
