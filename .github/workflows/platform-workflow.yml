@@ -3,52 +3,16 @@ on:
   pull_request:
     paths:
       - 'platform/**'
-#  push:
-#    branches:
-#      - 'main'
-#      - 'feature/**'
+  push:
+    branches:
+      - 'main'
+      - 'feature/**'
 
 jobs:
-  tf_deploy_dev:
-    environment: dev
-
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-
-    permissions:
-      contents: 'read'
-      id-token: 'write'
-
-    defaults:
-      run:
-        working-directory: 'platform'
-
-
-    name: Terraform Deploy (Dev)
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - id: 'auth'
-        uses: 'google-github-actions/auth@v2'
-        with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: ${{ vars.TERRAFORM_VERSION }}
-
-      - name: Terraform Init
-        run: terraform init --backend-config=./environments/${{ vars.ENVIRONMENT_NAME }}/terraform.backend
-
-      - name: Terraform Validate
-        run: terraform validate
-
-      - name: Terraform Plan
-        id: terraform-plan
-        run: terraform plan -var-file="environments/${{ vars.ENVIRONMENT_NAME }}/terraform.tfvars"
+  platform_deploy_dev:
+    name: Platform Deploy Dev
+    uses: ./.github/workflows/deploy.yml
+    with:
+      environment: dev
 
 

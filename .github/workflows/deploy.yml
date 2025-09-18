@@ -2,14 +2,16 @@
 name: Deploy
 
 on:
-  push:
-    branches:
-      - "feature/**"
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
 
 jobs:
   deploy-dev:
-    environment: dev
-    name: TF Deploy Dev
+    environment: ${{ inputs.environment }}
+    name: TF Deploy ${{ inputs.environment }}
     runs-on: ubuntu-latest
 
     permissions:
