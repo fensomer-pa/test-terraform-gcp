@@ -7,26 +7,13 @@ on:
       - "feature/**"
 
 jobs:
-  plan-dev:
-    environment: dev
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
+  deploy-dev:
+    name: Application - Deploy to Dev
+    uses: ./.github/workflows/tf_deploy.yml
+    with:
+      environment: dev
 
-    permissions:
-      contents: 'read'
-      id-token: 'write'
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: 'Authenticate to GCP'
-        uses: 'google-github-actions/auth@v2'
-        with:
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-
-#      - uses: ./.github/action/tf-deploy
 
 
 

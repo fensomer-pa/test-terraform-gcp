@@ -1,0 +1,79 @@
+name: Deploy Resources
+
+on:
+  workflow_call:
+#    secrets:
+#      workload_identity_provider:
+#        required: true
+#      wip_service_account:
+#        required: true
+    inputs:
+      environment:
+        type: string
+        required: true
+      do-validation-checks:
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+  packages: read
+  actions: read
+
+jobs:
+  tf-deploy:
+    environment: ${{ inputs.environemnt}}
+    name: TF Deploye - ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+      packages: read
+      actions: read
+      pull-requests: write
+
+    defaults:
+      run:
+        shell: bash
+        working-directory: terraform
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.9.0"
+
+#      - name: Terraform Format
+#        if: ${{ inputs.do-validation-checks }}
+#        run: terraform fmt -check -recursive
+#
+#      - name: terraform validate
+#        if: ${{ inputs.do-validation-checks }}
+#        uses: dflook/terraform-validate@v1
+
+#      - name: Checkov GitHub Action
+#        if: ${{ inputs.do-validation-checks }}
+#        uses: bridgecrewio/checkov-action@v12
+#        with:
+#          skip_check: ${{ inputs.checkov-skip-check }}
+#          output_format: github_failed_only
+#          output_file_path: console
+
+#      - name: Terraform Init
+#        run: |
+#          terraform init --backend-config=./environments/${{ vars.ENVIRONMENT_NAME }}/terraform.backend
+#
+#      - name: Terraform Plan
+#        run: terraform plan -input=false -out out.tfplan -var-file="environments/${{ vars.ENVIRONMENT_NAME }}/terraform.tfvars"
+
