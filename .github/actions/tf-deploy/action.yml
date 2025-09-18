@@ -2,12 +2,6 @@ name: shared-deploy
 author: Reece.fensome
 description: shared-deploy
 inputs:
-  workload_identity_provider:
-    description: 'Test'
-    required: true
-  service_account:
-    description: 'Test'
-    required: true
   terraform_version:
     description: 'Test'
     required: false
@@ -23,22 +17,17 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v2'
-      with:
-        workload_identity_provider: ${{ inputs.workload_identity_provider }}
-        service_account: ${{ inputs.service_account }}
-
     - id: 'setup_terraform'
       uses: hashicorp/setup-terraform@v3
       with:
         terraform_version: ${{ inputs.terraform_version }}
 
-#    - id: 'tf_init'
-#      run: terraform init --backend-config=./environments/${{ inputs.environment_name }}/terraform.backend
-#      working-directory: ${{ inputs.working_directory }}
-#
-#    - id: 'tf_validate'
-#      run: terraform validate
-#      working-directory: ${{ inputs.working_directory }}
+    - id: 'tf_init'
+      run: terraform init --backend-config=./environments/${{ inputs.environment_name }}/terraform.backend
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
 
+    - id: 'tf_validate'
+      run: terraform validate
+      shell: bash
+      working-directory: ${{ inputs.working_directory }}
