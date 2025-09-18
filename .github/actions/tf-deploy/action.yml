@@ -1,9 +1,22 @@
 name: shared-deploy
 author: Reece.fensome
 description: shared-deploy
+inputs:
+  environment_name:
+    required: true
+    description: 'The terraform environment'
+  terraform_version:
+    required: true
+    default: 1.7.5
+    description: 'The terraform version'
 runs:
   using: "composite"
   steps:
-    - id: 'setup-terraform'
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: ${{ inputs.terraform_version }}
+
+    - name: Terraform Init
       shell: bash
-      run: 'printenv'
+      run: terraform init --backend-config=./environments/${{ inputs.environment_name }}/terraform.backend
