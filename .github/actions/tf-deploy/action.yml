@@ -9,6 +9,11 @@ inputs:
     required: true
     default: 1.7.5
     description: 'The terraform version'
+  working_directory:
+    required: true
+    default: 1.7.5
+    description: 'The terraform version'
+
 runs:
   using: "composite"
   steps:
@@ -20,3 +25,4 @@ runs:
     - name: Terraform Init
       shell: bash
       run: terraform init --backend-config=./environments/${{ inputs.environment_name }}/terraform.backend
+      working-directory: ${{ inputs.working_directory }}
