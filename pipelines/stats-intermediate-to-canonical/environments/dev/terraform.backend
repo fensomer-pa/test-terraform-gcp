@@ -1,2 +1,2 @@
-bucket="pa-rf-sandbox-tf-state"
+bucket="pa-rf-sandbox-tfstate"
 prefix = "pipelines/stats-intermediate-to-canonical"
