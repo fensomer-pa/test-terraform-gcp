@@ -1,6 +1,5 @@
-# .github/workflows/deploy.yml
+# .github/workflows/platform-deploy.yml
 name: Deploy Platform Change
-
 
 on:
   pull_request:
@@ -10,6 +9,7 @@ on:
     branches:
       - 'main'
       - 'feature/**'
+      - 'release/**'
 
 permissions:
   contents: 'read'
@@ -32,10 +32,9 @@ jobs:
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
       - name: Setup Terraform
-        uses: ./.github/actions/tf-deploy
+        uses: ./.github/actions/tf-cli
         with:
           environment_name: dev
-          terraform_version: 1.7.5
           working_directory: 'platform'
 
 

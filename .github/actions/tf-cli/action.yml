@@ -1,6 +1,6 @@
-name: shared-deploy
+name: tf-cli
 author: Reece.fensome
-description: shared-deploy
+description: The Terraform CLI action
 inputs:
   environment_name:
     required: true
@@ -11,8 +11,8 @@ inputs:
     description: 'The terraform version'
   working_directory:
     required: true
-    default: 1.7.5
-    description: 'The terraform version'
+    default: ''
+    description: 'The working directory where Terraform will be executed from'
 
 runs:
   using: "composite"
