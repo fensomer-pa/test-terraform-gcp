@@ -22,13 +22,6 @@ jobs:
     name: TF Deploye - ${{ inputs.environment }}
     runs-on: ubuntu-latest
 
-    permissions:
-      id-token: write
-      contents: read
-      packages: read
-      actions: read
-      pull-requests: write
-
     defaults:
       run:
         shell: bash
