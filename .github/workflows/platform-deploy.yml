@@ -6,6 +6,8 @@ on:
     paths:
       - 'platform/**'
   push:
+    paths:
+      - 'platform/**'
     branches:
       - 'main'
       - 'feature/**'
