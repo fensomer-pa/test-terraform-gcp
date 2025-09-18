@@ -8,10 +8,10 @@ on:
         required: false
         type: string
         default: './'
-    environment:
-      description: 'The directory where terraform commands will be run'
-      required: true
-      type: string
+      environment:
+        description: 'The directory where terraform commands will be run'
+        required: true
+        type: string
     secrets:
       # These secrets are expected to be passed from the caller,
       # often inherited from an environment's secrets.
