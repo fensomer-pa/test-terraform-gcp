@@ -16,11 +16,6 @@ on:
         required: false
         default: false
 
-permissions:
-  contents: read
-  packages: read
-  actions: read
-
 jobs:
   tf-deploy:
     environment: ${{ inputs.environemnt}}
