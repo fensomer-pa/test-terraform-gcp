@@ -1,18 +1,25 @@
 # .github/workflows/deploy.yml
-name: Deploy
+name: Deploy Platform Change
+
 
 on:
-  workflow_call:
-    inputs:
-      environment:
-        type: string
-        required: true
+  pull_request:
+    paths:
+      - 'platform/**'
+  push:
+    branches:
+      - 'main'
+      - 'feature/**'
 
 jobs:
   deploy-dev:
     environment: ${{ inputs.environment }}
     name: TF Deploy ${{ inputs.environment }}
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: 'read'
+      id-token: 'write'
 
     steps:
       - name: Checkout
