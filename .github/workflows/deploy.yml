@@ -33,6 +33,9 @@ jobs:
 
       - name: Setup Terraform
         uses: ./.github/actions/tf-deploy
+        with:
+          environment_name: dev
+          terraform_version: 1.7.5
 
 
 
