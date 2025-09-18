@@ -1,22 +1,9 @@
 name: shared-deploy
 author: Reece.fensome
 description: shared-deploy
-inputs:
-  terraform_version:
-    description: 'Test'
-    required: false
-    default: 1.7.5
-  environment_name:
-    description: 'Test'
-    required: false
-    default: 'dev'
-  working_directory:
-    description: 'Test'
-    required: false
-    default: 'platform'
 runs:
   using: "composite"
   steps:
-    - id: 'setup_terraform'
+    - id: 'setup-terraform'
       shell: bash
       run: 'printenv'

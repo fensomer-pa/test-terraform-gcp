@@ -38,7 +38,7 @@ jobs:
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
 
       - name: Setup Terraform
-        uses: ./.github/actions/tf_deploy
+        uses: ./.github/actions/tf-deploy
 
 #      - name: Terraform Format
 #        if: ${{ inputs.do-validation-checks }}
