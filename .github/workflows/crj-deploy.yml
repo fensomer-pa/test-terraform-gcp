@@ -12,10 +12,10 @@ on:
         required: true
         type: string
         description: The environment name being deployed to
-      image-url:
+      image-tag:
         required: true
         type: string
-        description: The image url to deployed
+        description: The image tag to deployed
 
 permissions:
   contents: 'read'
@@ -35,7 +35,7 @@ jobs:
           echo "Running With Params"
           echo ${{ inputs.pipeline-name }}
           echo ${{ inputs.environment-name }}
-          echo ${{ inputs.image-url }}
+          echo ${{ inputs.image-tag }}
 
       - name: Checkout
         uses: actions/checkout@v4
