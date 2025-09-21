@@ -12,7 +12,7 @@ on:
         required: true
         type: string
         description: The branch_name name being deployed to
-      image_tag:
+      image_url:
         required: true
         type: string
         description: The image tag to deployed
