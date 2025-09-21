@@ -1,2 +1,2 @@
-bucket="dft-ozev-evchargepoints-test-tf-state"
-prefix = "pipeline-stats"
+bucket="pa-rf-sandbox-tfstate"
+prefix = "pipelines/stats-intermediate-to-canonical"
