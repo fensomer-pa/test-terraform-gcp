@@ -21,21 +21,21 @@ permissions:
   contents: 'read'
   id-token: 'write'
 
-run-name: ${{ github.actor }} has trigger deployment for ${{ inputs.pipeline-name }}  🚀
+run-name: ${{ github.actor }} has trigger deployment for ${{ inputs.pipeline_name }}  🚀
 
 jobs:
   deploy-ftr:
-    if: ${{ inputs.environment-name == 'ftr' }}
+    if: ${{ inputs.environment_name == 'ftr' }}
     environment: dev
-    name: Deploy ${{ inputs.pipeline-name }} to ${{ inputs.environment-name }}
+    name: Deploy ${{ inputs.pipeline_name }} to ${{ inputs.environment_name }}
     runs-on: ubuntu-latest
 
     steps:
       - run: |
           echo "Running With Params"
-          echo ${{ inputs.pipeline-name }}
-          echo ${{ inputs.environment-name }}
-          echo ${{ inputs.image-tag }}
+          echo ${{ inputs.pipeline_name }}
+          echo ${{ inputs.environment_name }}
+          echo ${{ inputs.image_tag }}
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -50,20 +50,20 @@ jobs:
         uses: ./.github/actions/tf-cli
         with:
           environment_name: dev
-          working_directory: 'pipelines/${{ inputs.pipeline-name }}'
+          working_directory: 'pipelines/${{ inputs.pipeline_name }}'
 
   deploy-dev:
-    if: ${{ inputs.environment-name == 'dev' }}
+    if: ${{ inputs.environment_name == 'dev' }}
     environment: dev
-    name: Deploy ${{ inputs.pipeline-name }} to ${{ inputs.environment-name }}
+    name: Deploy ${{ inputs.pipeline_name }} to ${{ inputs.environment_name }}
     runs-on: ubuntu-latest
 
     steps:
       - run: |
           echo "Running With Params"
-          echo ${{ inputs.pipeline-name }}
-          echo ${{ inputs.environment-name }}
-          echo ${{ inputs.image-tag }}
+          echo ${{ inputs.pipeline_name }}
+          echo ${{ inputs.environment_name }}
+          echo ${{ inputs.image_tag }}
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -77,54 +77,5 @@ jobs:
       - name: Run Terraform
         uses: ./.github/actions/tf-cli
         with:
-          environment_name: ${{ inputs.environment-name }}
-          working_directory: 'pipelines/${{ inputs.pipeline-name }}'
-#
-#  deploy-test:
-#    if: ${{ inputs.environment-name == 'test' }}
-#    environment: dev
-#    name: Deploy ${{ inputs.pipeline-name }} to ${{ inputs.environment-name }}
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v4
-#
-#      - name: Authenticate to Google Cloud
-#        uses: google-github-actions/auth@v2
-#        with:
-#          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-#          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-#
-#      - name: Run Terraform
-#        uses: ./.github/actions/tf-cli
-#        with:
-#          environment_name: ${{ inputs.environment-name }}
-#          working_directory: 'pipelines/${{ inputs.pipeline-name }}'
-#
-#  deploy-prod:
-#    if: ${{ inputs.environment-name == 'prod' }}
-#    environment: dev
-#    name: Deploy ${{ inputs.pipeline-name }} to ${{ inputs.environment-name }}
-#    runs-on: ubuntu-latest
-#
-#    steps:
-#      - name: Checkout
-#        uses: actions/checkout@v4
-#
-#      - name: Authenticate to Google Cloud
-#        uses: google-github-actions/auth@v2
-#        with:
-#          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-#          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
-#
-#      - name: Run Terraform
-#        uses: ./.github/actions/tf-cli
-#        with:
-#          environment_name: ${{ inputs.environment-name }}
-#          working_directory: 'pipelines/${{ inputs.pipeline-name }}'
-#
-#
-#
-#
-#
+          environment_name: ${{ inputs.environment_name }}
+          working_directory: 'pipelines/${{ inputs.pipeline_name }}'
