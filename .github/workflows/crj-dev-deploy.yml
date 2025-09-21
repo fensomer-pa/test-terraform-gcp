@@ -8,10 +8,10 @@ on:
         required: true
         type: string
         description: The pipeline being deployed
-      environment_name:
+      branch_name:
         required: true
         type: string
-        description: The environment name being deployed to
+        description: The branch_name name being deployed to
       image_tag:
         required: true
         type: string
@@ -25,7 +25,7 @@ run-name: ${{ github.actor }} has trigger deployment for ${{ inputs.pipeline_nam
 
 jobs:
   deploy-dev:
-    if: ${{ inputs.environment_name == 'ftr' || inputs.environment_name == 'dev' }}
+    if: ${{  startsWith(inputs.branch_name, 'feature/') || inputs.branch_name == 'dev' }}
     environment: dev
     name: Deploy ${{ inputs.pipeline_name }} to ${{ inputs.environment_name }}
     runs-on: ubuntu-latest
