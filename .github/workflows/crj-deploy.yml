@@ -49,12 +49,12 @@ jobs:
       - name: Run Terraform
         uses: ./.github/actions/tf-cli
         with:
-          environment_name: ${{ inputs.environment-name }}
+          environment_name: dev
           working_directory: 'pipelines/${{ inputs.pipeline-name }}'
 
   deploy-dev:
     if: ${{ inputs.environment-name == 'dev' }}
-    environment: ${{ inputs.environment-name }}
+    environment: dev
     name: Deploy ${{ inputs.pipeline-name }} to ${{ inputs.environment-name }}
     runs-on: ubuntu-latest
 
